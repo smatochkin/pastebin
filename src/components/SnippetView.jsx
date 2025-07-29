@@ -68,6 +68,14 @@ function SnippetView() {
     return lang ? lang.label : langValue;
   };
 
+  const editorDidMount = (editor, monaco) => {
+    // Ensure proper syntax highlighting
+    monaco.editor.setTheme('vs-dark');
+    if (snippet) {
+      editor.getModel()?.setLanguage(snippet.language);
+    }
+  };
+
   const editorOptions = {
     selectOnLineNumbers: true,
     automaticLayout: true,
@@ -150,6 +158,7 @@ function SnippetView() {
           theme="vs-dark"
           value={snippet.content}
           options={editorOptions}
+          editorDidMount={editorDidMount}
         />
       </div>
 

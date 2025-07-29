@@ -5,7 +5,8 @@
   channel = "stable-24.05"; # or "unstable"
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    pkgs.nodejs_20
+    pkgs.nodejs_22
+    pkgs.redis
   ];
   # Sets environment variables in the workspace
   env = {};
@@ -22,6 +23,9 @@
         default.openFiles = [ "src/App.tsx" "src/App.ts" "src/App.jsx" "src/App.js" ];
       };
       # To run something each time the workspace is (re)started, use the `onStart` hook
+      onStart = {
+        redis-server = "redis-server --daemonize yes --port 6379 --bind 127.0.0.1";
+      };
     };
     # Enable previews and customize configuration
     previews = {
@@ -31,6 +35,11 @@
           command = ["npm" "run" "dev" "--" "--port" "$PORT" "--host" "0.0.0.0"];
           manager = "web";
         };
+        # backend = {
+        #   command = ["npm" "run" "dev"];
+        #   cwd = "backend";
+        #   manager = "web";
+        # };
       };
     };
   };

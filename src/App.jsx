@@ -25,7 +25,7 @@ function App() {
     setSavedUrl('');
     
     try {
-      const response = await fetch('http://localhost:3001/api/snippets', {
+      const response = await fetch('https://3001-firebase-pastebin-1753651815053.cluster-vyr53kd25jc2yvngldrwyq6zc4.cloudworkstations.dev/api/snippets', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ function App() {
       
       if (data.success) {
         setSaveStatus('success');
-        setSavedUrl(`http://localhost:3001${data.url}`);
+        setSavedUrl(`https://3001-firebase-pastebin-1753651815053.cluster-vyr53kd25jc2yvngldrwyq6zc4.cloudworkstations.dev${data.url}`);
       } else {
         setSaveStatus('error');
         setErrorMessage(data.error || 'Failed to save snippet');

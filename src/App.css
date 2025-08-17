@@ -22,7 +22,7 @@ body {
 }
 
 .App {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -135,6 +135,17 @@ label {
   background-color: #3e3e42;
 }
 
+.wrap-toggle.active {
+  background-color: #007acc;
+  color: white;
+  border-color: #007acc;
+}
+
+.wrap-toggle.active:hover:not(:disabled) {
+  background-color: #005a9e;
+  border-color: #005a9e;
+}
+
 /* Message Styles */
 .message {
   padding: 1rem;
@@ -176,10 +187,13 @@ label {
   width: 100% !important;
 }
 
-/* Ensure all components use full width */
+/* Ensure all components use full width and height */
 .home, .snippet-view {
   width: 100%;
   max-width: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Snippet View Specific */

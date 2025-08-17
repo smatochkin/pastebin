@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MonacoEditor from 'react-monaco-editor';
+import Editor from '@monaco-editor/react';
 import { api } from '../api.js';
 import { LANGUAGES } from '../constants.js';
 
@@ -164,43 +164,6 @@ function Home() {
   const [language, setLanguage] = useState('javascript');
   const [saveStatus, setSaveStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-  const editorRef = React.useRef(null);
-
-  // Force Monaco Editor to load properly
-  useEffect(() => {
-    // Small delay to ensure Monaco is fully loaded
-    const timer = setTimeout(() => {
-      if (editorRef.current && window.monaco) {
-        const model = editorRef.current.getModel();
-        if (model) {
-          window.monaco.editor.setModelLanguage(model, language);
-        }
-      }
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [language]);
-
-  const editorDidMount = (editor, monaco) => {
-    editorRef.current = editor;
-    
-    // Ensure all languages are properly registered
-    const languages = ['javascript', 'typescript', 'python', 'html', 'css', 'json', 'yaml', 'markdown', 'xml', 'sql'];
-    
-    // Force language registration
-    languages.forEach(lang => {
-      try {
-        monaco.languages.getLanguages().find(l => l.id === lang);
-      } catch (e) {
-        console.warn(`Language ${lang} not found`);
-      }
-    });
-    
-    // Set theme explicitly
-    monaco.editor.setTheme('vs-dark');
-    
-    // Force syntax highlighting refresh
-    editor.getModel()?.setLanguage(language);
-  };
 
   const editorOptions = {
     selectOnLineNumbers: true,
@@ -248,14 +211,6 @@ function Home() {
     setLanguage(newLanguage);
     // Load example code for the selected language
     setCode(DEFAULT_CODE[newLanguage] || '// Start coding here...');
-    
-    // Force language update in Monaco Editor
-    if (editorRef.current) {
-      const model = editorRef.current.getModel();
-      if (model) {
-        window.monaco?.editor.setModelLanguage(model, newLanguage);
-      }
-    }
   };
 
   const handleNewSnippet = () => {
@@ -315,15 +270,14 @@ function Home() {
       )}
       
       <div className="editor-container">
-        <MonacoEditor
+        <Editor
           width="100%"
           height="70vh"
           language={language}
           theme="vs-dark"
           value={code}
           options={editorOptions}
-          onChange={(newValue) => setCode(newValue)}
-          editorDidMount={editorDidMount}
+          onChange={(newValue) => setCode(newValue || '')}
         />
       </div>
     </div>

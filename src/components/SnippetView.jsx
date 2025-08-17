@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import MonacoEditor from 'react-monaco-editor';
+import Editor from '@monaco-editor/react';
 import { api } from '../api.js';
 import { LANGUAGES } from '../constants.js';
 
@@ -68,13 +68,6 @@ function SnippetView() {
     return lang ? lang.label : langValue;
   };
 
-  const editorDidMount = (editor, monaco) => {
-    // Ensure proper syntax highlighting
-    monaco.editor.setTheme('vs-dark');
-    if (snippet) {
-      editor.getModel()?.setLanguage(snippet.language);
-    }
-  };
 
   const editorOptions = {
     selectOnLineNumbers: true,
@@ -151,14 +144,13 @@ function SnippetView() {
       </div>
 
       <div className="editor-container">
-        <MonacoEditor
+        <Editor
           width="100%"
           height="70vh"
           language={snippet.language}
           theme="vs-dark"
           value={snippet.content}
           options={editorOptions}
-          editorDidMount={editorDidMount}
         />
       </div>
 

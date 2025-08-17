@@ -173,7 +173,11 @@ function Home() {
     fontSize: 14,
     tabSize: 2,
     insertSpaces: true,
-    wordWrap: wordWrap ? 'on' : 'off'
+    wordWrap: wordWrap ? 'on' : 'off',
+scrollbar: {
+      vertical: 'visible',
+      horizontal: 'visible'
+    }
   };
 
   const handleSave = async () => {

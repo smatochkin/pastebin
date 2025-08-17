@@ -78,7 +78,11 @@ function SnippetView() {
     fontSize: 14,
     tabSize: 2,
     wordWrap: wordWrap ? 'on' : 'off',
-    scrollBeyondLastLine: false
+    scrollBeyondLastLine: false,
+    scrollbar: {
+      vertical: 'visible',
+      horizontal: 'visible'
+    }
   };
 
   if (loading) {

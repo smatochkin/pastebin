@@ -11,6 +11,7 @@ function SnippetView() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [wordWrap, setWordWrap] = useState(true);
 
   useEffect(() => {
     loadSnippet();
@@ -76,7 +77,7 @@ function SnippetView() {
     minimap: { enabled: false },
     fontSize: 14,
     tabSize: 2,
-    wordWrap: 'on',
+    wordWrap: wordWrap ? 'on' : 'off',
     scrollBeyondLastLine: false
   };
 
@@ -126,6 +127,13 @@ function SnippetView() {
           </div>
         </div>
         <div className="actions">
+          <button
+            onClick={() => setWordWrap(!wordWrap)}
+            className={`btn btn-outline wrap-toggle ${wordWrap ? 'active' : ''}`}
+            title={wordWrap ? 'Disable line wrapping' : 'Enable line wrapping'}
+          >
+            {wordWrap ? '↩ Wrap' : '→ No Wrap'}
+          </button>
           <button 
             onClick={handleCopy}
             className="btn btn-outline"
@@ -146,7 +154,7 @@ function SnippetView() {
       <div className="editor-container">
         <Editor
           width="100%"
-          height="70vh"
+          height="100%"
           language={snippet.language}
           theme="vs-dark"
           value={snippet.content}

@@ -22,9 +22,10 @@ function Home() {
     tabSize: 2,
     insertSpaces: true,
     wordWrap: wordWrap ? 'on' : 'off',
-scrollbar: {
-      vertical: 'visible',
-      horizontal: 'visible'
+    scrollBeyondLastLine: false,
+    scrollbar: {
+      vertical: 'auto',
+      horizontal: 'auto'
     }
   };
 

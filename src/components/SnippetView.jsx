@@ -79,10 +79,6 @@ function SnippetView() {
     tabSize: 2,
     wordWrap: wordWrap ? 'on' : 'off',
     scrollBeyondLastLine: false,
-    scrollbar: {
-      vertical: 'visible',
-      horizontal: 'visible'
-    }
   };
 
   if (loading) {
@@ -138,14 +134,14 @@ function SnippetView() {
           >
             {wordWrap ? '↩ Wrap' : '→ No Wrap'}
           </button>
-          <button 
+          <button
             onClick={handleCopy}
             className="btn btn-outline"
             title="Copy code to clipboard"
           >
             {copied ? '✓ Copied!' : '📋 Copy'}
           </button>
-          <button 
+          <button
             onClick={handleShare}
             className="btn btn-outline"
             title="Share this snippet"

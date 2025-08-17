@@ -164,6 +164,7 @@ function Home() {
   const [language, setLanguage] = useState('javascript');
   const [saveStatus, setSaveStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [wordWrap, setWordWrap] = useState(true);
 
   const editorOptions = {
     selectOnLineNumbers: true,
@@ -172,7 +173,7 @@ function Home() {
     fontSize: 14,
     tabSize: 2,
     insertSpaces: true,
-    wordWrap: 'on'
+    wordWrap: wordWrap ? 'on' : 'off'
   };
 
   const handleSave = async () => {
@@ -237,6 +238,18 @@ function Home() {
               ))}
             </select>
           </div>
+
+          <div className="control-group">
+            <label htmlFor="wrap-toggle">Line Wrap:</label>
+            <button
+              id="wrap-toggle"
+              onClick={() => setWordWrap(!wordWrap)}
+              className={`btn btn-outline wrap-toggle ${wordWrap ? 'active' : ''}`}
+              title={wordWrap ? 'Disable line wrapping' : 'Enable line wrapping'}
+            >
+              {wordWrap ? '↩ On' : '→ Off'}
+            </button>
+          </div>
           
           <div className="button-group">
             <button 
@@ -272,7 +285,7 @@ function Home() {
       <div className="editor-container">
         <Editor
           width="100%"
-          height="70vh"
+          height="100%"
           language={language}
           theme="vs-dark"
           value={code}

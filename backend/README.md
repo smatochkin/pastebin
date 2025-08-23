@@ -1,6 +1,6 @@
 # Pastebin Backend
 
-A Node.js Express API server using Valkey for storage with automatic 2-week expiry.
+A Node.js Express API server using [Valkey](https://valkey.io/) for storage with automatic 2-week expiry.
 
 ## Features
 
@@ -14,30 +14,34 @@ A Node.js Express API server using Valkey for storage with automatic 2-week expi
 ## Setup
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Set up environment variables:**
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
 3. **Start Valkey/Redis server:**
+
    ```bash
    # Using Docker
    docker run -d -p 6379:6379 valkey/valkey:latest
-   
+
    # Or install locally and run
    valkey-server
    ```
 
 4. **Start the server:**
+
    ```bash
    # Development
    npm run dev
-   
+
    # Production
    npm start
    ```
@@ -45,6 +49,7 @@ A Node.js Express API server using Valkey for storage with automatic 2-week expi
 ## API Endpoints
 
 ### Save Snippet
+
 ```http
 POST /api/snippets
 Content-Type: application/json
@@ -57,21 +62,24 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
   "id": "V1StGXR8_Z5j",
-  "url": "/snippet/V1StGXR8_Z5j",
+  "url": "/api/snippet/V1StGXR8_Z5j",
   "expires_at": "2024-02-15T10:30:00Z"
 }
 ```
 
 ### Retrieve Snippet
+
 ```http
 GET /api/snippets/:id
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -88,6 +96,7 @@ GET /api/snippets/:id
 ```
 
 ### Health Check
+
 ```http
 GET /health
 ```
